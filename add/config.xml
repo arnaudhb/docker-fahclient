@@ -1,0 +1,30 @@
+<!--
+This is a minimal fah configuration file for computing 
+with a CPU.
+-->
+<config>
+  <!-- Client Control -->
+  <fold-anon v='false'/>
+
+  <!-- Remote Command Server -->
+  <command-allow-no-pass v='127.0.0.1 172.17.0.1'/>
+  <command-port v='36330'/>
+
+  <!-- HTTP Server -->
+  <allow v='127.0.0.1 172.17.0.1'/>
+  <web-allow v='127.0.0.1 172.17.0.1'/>
+
+  <!-- Folding Slot Configuration -->
+  <gpu v='false'/>
+
+  <!-- Slot Control -->
+  <power v='_POWER_'/>
+
+  <!-- User Information -->
+  <passkey v='_PASSKEY_'/>
+  <team v='_TEAM_'/>
+  <user v='_USER_'/>
+
+  <!-- Folding Slots -->
+  <slot id='0' type='CPU'/>
+</config>

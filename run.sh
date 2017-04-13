@@ -1,0 +1,30 @@
+#!/bin/bash
+
+USER_NAME=arnaudhb
+IMG_NAME=$(basename $(pwd))
+IMG_TAG=7.4.4
+
+FAHWEBCONTROL_PORT=7397
+FAHCONTROL_PORT=36331
+
+FAHCLIENT_POWER=light
+FAHCLIENT_PASSKEY=""
+FAHCLIENT_TEAM=""
+FAHCLIENT_USER=""
+
+if [ -z "$FAHCLIENT_PASSKEY" -o -z "$FAHCLIENT_TEAM" -o -z "$FAHCLIENT_USER" ]
+then
+  echo "Please set the variables by editing $0"
+  exit 1
+fi
+
+docker run \
+ -d --restart=always \
+ --name=fahclient \
+ -p $FAHWEBCONTROL_PORT:7396 \
+ -p $FAHCONTROL_PORT:36330 \
+ -e FAHCLIENT_POWER=$FAHCLIENT_POWER \
+ -e FAHCLIENT_PASSKEY=$FAHCLIENT_PASSKEY \
+ -e FAHCLIENT_TEAM=$FAHCLIENT_TEAM \
+ -e FAHCLIENT_USER=$FAHCLIENT_USER \
+ $USER_NAME/$IMG_NAME:$IMG_TAG
