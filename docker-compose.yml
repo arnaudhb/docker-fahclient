@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  fah-client:
+    build: 
+      context: .
+      args:
+        - BRAND=${BRAND}
+        - VERSION=${TAG}
+    image: arnaudhb/docker-fahclient:${TAG}
+    volumes:
+      - "./logs:/var/lib/fahclient/logs"
+    ports:
+      - "${FAHWEBCONTROL_PORT}:7396"
+      - "${FAHCONTROL_PORT}:36330"
+    network_mode: "bridge"
+    container_name: fah-client
+    restart: always
+    environment:
+      - FAHCLIENT_POWER=${FAHCLIENT_POWER}
+      - FAHCLIENT_PASSKEY=${FAHCLIENT_PASSKEY}
+      - FAHCLIENT_TEAM=${FAHCLIENT_TEAM}
+      - FAHCLIENT_USER=${FAHCLIENT_USER}

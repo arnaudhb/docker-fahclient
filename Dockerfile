@@ -1,34 +1,30 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.10
+
+# non interactive mode
+ENV DEBIAN_FRONTEND=noninteractive
+
+# build args
+ARG BRAND
+ARG VERSION
 
 # install packages needed by fahclient installer
 RUN apt-get update && apt-get install -y bzip2
 
-# install fahclient
-ADD add/fahclient_7.4.4_amd64.deb .
-RUN dpkg -i fahclient_7.4.4_amd64.deb
-RUN rm -rf *.deb
+# add files to image
+COPY docker-entrypoint.sh /
+COPY add/config.xml /etc/fahclient/
+ADD https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/${BRAND}/fahclient_${VERSION}_amd64.deb /fahclient.deb
 
-# configure it
-RUN mv /etc/fahclient/config.xml /etc/fahclient/config.xml.orig
-ADD add/config.xml /etc/fahclient
-
-# cleanup
-RUN rm -rf /var/lib/apt/lists/*
+# do not properly install package, but only retrieve binaries
+RUN dpkg -x ./fahclient.deb ./deb &&\
+ mv deb/usr/bin/* /usr/bin &&\
+ rm -rf *.deb &&\
+ rm -rf deb &&\
+ chmod u+x /docker-entrypoint.sh &&\
+ rm -rf /var/lib/apt/lists/*
 
 # go to homedir
 WORKDIR /var/lib/fahclient
 
-# environment variables
-ENV FAHCLIENT_POWER light
-ENV FAHCLIENT_PASSKEY ""
-ENV FAHCLIENT_TEAM ""
-ENV FAHCLIENT_USER ""
-
-# expose port for monitoring
-EXPOSE 36330
-EXPOSE 7396
-
 # entrypoint
-ADD docker-entrypoint.sh /
-RUN chmod u+x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
