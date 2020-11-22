@@ -14,7 +14,7 @@ docker-compose build
 ## Image pulling
 You can retrieve the latest built image with the command:
 ```
-docker pull arnaudhb/docker-fahclient:7.5.1
+docker pull arnaudhb/docker-fahclient
 ```
 
 ## Launch
@@ -35,6 +35,9 @@ If you want to check progress, the container exposes 2 ports:
 
 ## FAH configuration tuning
 The default add/config.xml FAHclient configuration file is given as is.
-Feel free to tune the configuration by building your own docker images and containers.
+
+Feel free to tune the configuration by building your own docker images.
+
+Any pull request is welcome.  (we also share code :) )
 
 Happy sharing !
