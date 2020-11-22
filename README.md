@@ -14,7 +14,7 @@ docker-compose build
 ## Image pulling
 You can retrieve the latest built image with the command:
 ```
-docker pull arnaudhb/docker-fahclient
+docker-compose pull
 ```
 
 ## Launch
