@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.04
 
 # non interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
